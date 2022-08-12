@@ -3,7 +3,7 @@ HangMan
         Will get a random word and track user input.
     
     2- Words Manager
-        Will store and server the words for the game
+        Will server stored words for the game
     
     3- Game settings
         Scores, number of tries/game diffulty
