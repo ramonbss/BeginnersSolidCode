@@ -1,5 +1,7 @@
 from abc import ABCMeta, abstractmethod
-from typing import List, Tuple
+from curses.ascii import isdigit
+from typing import List, Optional, Tuple
+import random
 
 
 class IPlayer(metaclass=ABCMeta):
@@ -13,8 +15,63 @@ class IPlayer(metaclass=ABCMeta):
         pass
 
 
+class ComputerPlayer(IPlayer):
+    def pick_board_position(
+            self,
+            taken_positions: List[Tuple[int, int]]) -> Tuple[int, int]:
+        while True:
+            position = self._generate_position()
+            if position not in taken_positions:
+                return position
+
+    def _generate_position(self) -> Tuple[int, int]:
+        valid_choices = [0, 1, 2]
+        row = random.choice(valid_choices)
+        col = random.choice(valid_choices)
+        position = (row, col)
+        return position
+
+
+class HumanPlayer(IPlayer):
+
+    def pick_board_position(
+            self,
+            taken_positions: List[Tuple[int, int]]) -> Tuple[int, int]:
+        position: Tuple[int, int]
+        while True:
+            user_input = self._read_user_input()
+            coordinates = self._convert_input_to_position(user_input)
+            if coordinates:
+                if coordinates in taken_positions:
+                    print('Coordinates already taken! Take another one')
+                else:
+                    position = coordinates
+                    break
+
+        return position
+
+    def _read_user_input(self) -> str:
+        print('Enter the position in the form row,column: ')
+        user_input = input()
+        return user_input
+
+    def _convert_input_to_position(self, user_input: str) ->\
+            Optional[Tuple[int, int]]:
+        coordinates = user_input.split(',')
+        if len(coordinates) == 2:
+            row, col = coordinates
+            if row.isdigit() and col.isdigit():
+                return (int(row), int(col))
+
+        return None
+
+
 def main():
-    pass
+    taken_positions = []
+    human_player = HumanPlayer('x')
+    computer_player = ComputerPlayer('o')
+    print(computer_player.pick_board_position(taken_positions))
+    print(human_player.pick_board_position(taken_positions))
 
 
 if __name__ == '__main__':
