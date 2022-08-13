@@ -33,3 +33,5 @@
 
     - Set player symbol
     - Pick a board position
+        1. Read user input
+        2. Check if was already taken
