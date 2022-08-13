@@ -27,6 +27,7 @@
         2. Check rows
         3. Check columns
         4. Check diagonals
+    - Store taken positions
 
 ## 3 - Player interface
 
