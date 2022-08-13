@@ -23,6 +23,10 @@
     1. Build new board
     2. Print board
     3. Check board for a winner
+        1. Check if game already finished
+        2. Check rows
+        3. Check columns
+        4. Check diagonals
 
 ## 3 - Player interface
 
