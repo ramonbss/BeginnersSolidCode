@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 
 class TicTacToeBoard:
@@ -17,6 +17,7 @@ class TicTacToeBoard:
         self._board.append([self._EMPTY_CELL]*3)
         self._board.append([self._EMPTY_CELL]*3)
         self._board.append([self._EMPTY_CELL]*3)
+        self._taken_positions: List[Tuple[int, int]] = []
 
     def print_board(self):
         print('\n   0  1  2')
@@ -30,6 +31,7 @@ class TicTacToeBoard:
     def mark_board(self, row: int, col: int, player_symbol: str) -> bool:
         if self._board[row][col] == self._EMPTY_CELL:
             self._board[row][col] = player_symbol
+            self._taken_positions.append((row, col))
             return True
         return False
 
