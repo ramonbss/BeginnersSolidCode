@@ -51,7 +51,7 @@ class TicTacToeGame:
             print('\t2- Computer vs Computer')
             print('Enter the game type: ', end='')
             game_type = int(input())
-            if game_type > 0 and game_type < 3:
+            if game_type >= 0 and game_type < 3:
                 break
         return game_type
 
