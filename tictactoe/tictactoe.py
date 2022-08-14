@@ -23,7 +23,9 @@ class TicTacToeGame:
         current_player = random.choice([self._player1, self._player2])
         while True:
             self._board.print_board()
-            print(f'{current_player.player_name} turn')
+            player_info = f'{current_player.player_name}'
+            player_info += f'({current_player.player_symbol})'
+            print(f'{player_info} turn')
             player_next_move =\
                 current_player.pick_board_position(
                     self._board.taken_positions
@@ -32,8 +34,7 @@ class TicTacToeGame:
                 *player_next_move, current_player.player_symbol)
             if self._board.check_if_winner():
                 print(
-                    f'\n\nPlayer {current_player.player_name}', end='')
-                print(f'({current_player.player_symbol}) won the game!!!')
+                    f'\n\nPlayer {player_info} won the game!!!')
                 break
             elif self._board.check_if_drawn():
                 print('\n\nGame drawn!')
