@@ -58,16 +58,27 @@ class HumanPlayer(IPlayer):
     def _convert_input_to_position(self, user_input: str) ->\
             Optional[Tuple[int, int]]:
         coordinates = user_input.split(',')
-        if len(coordinates) == 2:
+        if self._validate_coordinates(coordinates):
             row, col = coordinates
-            if row.isdigit() and col.isdigit():
-                return (int(row), int(col))
+            return (int(row), int(col))
 
         return None
 
+    def _validate_coordinates(
+            self,
+            position: List[str]) -> bool:
+        valid_choices = [0, 1, 2]
+        if len(position) == 2:
+            row, col = position
+            if row.isdigit() and col.isdigit():
+                if int(row) in valid_choices and int(col) in valid_choices:
+                    return True
+
+        return False
+
 
 def main():
-    taken_positions = []
+    taken_positions = [(0, 0), (1, 2), (1, 1), (2, 2)]
     human_player = HumanPlayer('x')
     computer_player = ComputerPlayer('o')
     print(computer_player.pick_board_position(taken_positions))
