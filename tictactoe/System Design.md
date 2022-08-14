@@ -23,11 +23,13 @@
 
     - Build new board
     - Print board
-    - Check board for a winner
-        1. Check if game already finished
-        2. Check rows
-        3. Check columns
-        4. Check diagonals
+    - Check if game finished
+        - Check board for a winner
+            1. Check if game already finished
+            2. Check rows
+            3. Check columns
+            4. Check diagonals
+        - Check if game drawn
     - Store taken positions
 
 ## 3 - Player interface

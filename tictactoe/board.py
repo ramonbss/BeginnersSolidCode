@@ -39,6 +39,10 @@ class TicTacToeBoard:
         return self._check_rows() or self._check_columns() or\
             self._check_diagnoals()
 
+    def check_if_drawn(self) -> bool:
+        return len(self._taken_positions) == \
+            self._BOARD_COLUMNS * self._BOARD_ROWS
+
     def _check_rows(self) -> bool:
         for row_elements in self._board:
             if(self._check_if_all_elements_equal(row_elements)):

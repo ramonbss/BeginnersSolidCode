@@ -31,12 +31,19 @@ class TicTacToeGame:
             self._board.mark_board(
                 *player_next_move, current_player.player_symbol)
             if self._board.check_if_winner():
-                print(f'Player {current_player.player_name} won the game!!!')
+                print(
+                    f'\n\nPlayer {current_player.player_name}', end='')
+                print(f'({current_player.player_symbol}) won the game!!!')
+                break
+            elif self._board.check_if_drawn():
+                print('\n\nGame drawn!')
                 break
             if current_player == self._player1:
                 current_player = self._player2
             else:
                 current_player = self._player1
+
+        self._board.print_board()
 
     def _prompt_game_type(self) -> int:
         while True:
