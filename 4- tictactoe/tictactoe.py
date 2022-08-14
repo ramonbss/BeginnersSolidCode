@@ -1,13 +1,18 @@
+import dataclasses
 from board import TicTacToeBoard
 from player import HumanPlayer, ComputerPlayer, IPlayer
 import random
+from dataclasses import dataclass
 
 
-class TicTacToeGame:
+@dataclass
+class GameTypes:
     _GAME_HUMAN_HUMAN = 0
     _GAME_COMPUTER_HUMAN = 1
     _GAME_COMPUTER_COMPUTER = 2
 
+
+class TicTacToeGame:
     _P1_NAME = 'Player1'
     _P2_NAME = 'Player2'
 
@@ -57,14 +62,14 @@ class TicTacToeGame:
         return game_type
 
     def _initialize_players(self, game_type: int):
-        if game_type == self._GAME_HUMAN_HUMAN:
+        if game_type == GameTypes._GAME_HUMAN_HUMAN:
             self._player1 = HumanPlayer(self._board.p1_symbol, self._P1_NAME)
             self._player2 = HumanPlayer(self._board.p2_symbol, self._P2_NAME)
-        elif game_type == self._GAME_COMPUTER_HUMAN:
+        elif game_type == GameTypes._GAME_COMPUTER_HUMAN:
             self._player1 = HumanPlayer(self._board.p1_symbol, self._P1_NAME)
             self._player2 = ComputerPlayer(
                 self._board.p2_symbol, self._P2_NAME)
-        elif game_type == self._GAME_COMPUTER_COMPUTER:
+        elif game_type == GameTypes._GAME_COMPUTER_COMPUTER:
             self._player1 = ComputerPlayer(
                 self._board.p1_symbol, self._P1_NAME)
             self._player2 = ComputerPlayer(
