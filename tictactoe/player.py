@@ -5,14 +5,20 @@ import random
 
 
 class IPlayer(metaclass=ABCMeta):
-    def __init__(self, player_symbol: str) -> None:
+    def __init__(self, player_symbol: str,
+                 player_name: str) -> None:
         self.__player_symbol = player_symbol
+        self.__player_name = player_name
 
     @abstractmethod
     def pick_board_position(
             self,
             taken_positions: List[Tuple[int, int]]) -> Tuple[int, int]:
         pass
+
+    @property
+    def player_name(self) -> str:
+        return self.__player_name
 
 
 class ComputerPlayer(IPlayer):
@@ -79,8 +85,8 @@ class HumanPlayer(IPlayer):
 
 def main():
     taken_positions = [(0, 0), (1, 2), (1, 1), (2, 2)]
-    human_player = HumanPlayer('x')
-    computer_player = ComputerPlayer('o')
+    human_player = HumanPlayer('x', 'p1')
+    computer_player = ComputerPlayer('o', 'p2')
     print(computer_player.pick_board_position(taken_positions))
     print(human_player.pick_board_position(taken_positions))
 
