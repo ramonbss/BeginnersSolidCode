@@ -17,15 +17,19 @@ class TicTacToeGame:
         self._board = TicTacToeBoard()
 
     def start_game(self) -> None:
+        self._board.build_new_board()
         game_type = self._prompt_game_type()
         self._initialize_players(game_type)
         current_player = random.choice([self._player1, self._player2])
         while True:
             self._board.print_board()
             print(f'{current_player.player_name} turn')
-            current_player.pick_board_position(
-                self._board.taken_positions
-            )
+            player_next_move =\
+                current_player.pick_board_position(
+                    self._board.taken_positions
+                )
+            self._board.mark_board(
+                *player_next_move, current_player.player_symbol)
             if self._board.check_if_winner():
                 print(f'Player {current_player.player_name} won the game!!!')
                 break
@@ -36,11 +40,11 @@ class TicTacToeGame:
 
     def _prompt_game_type(self) -> int:
         while True:
-            print('1- Player vs Player\t2- Player vs Computer', end=' ')
-            print('3- Computer vs Computer')
+            print('0- Player vs Player\t1- Player vs Computer', end='')
+            print('\t2- Computer vs Computer')
             print('Enter the game type: ', end='')
             game_type = int(input())
-            if game_type >= 0 and game_type < 3:
+            if game_type > 0 and game_type < 3:
                 break
         return game_type
 

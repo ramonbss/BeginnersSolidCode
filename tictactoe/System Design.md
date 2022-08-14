@@ -9,13 +9,14 @@
             - Computer vs Computer
             1. Prompt game type
             2. Set players
-        2. Show actual board
-        3. Next player do it move
+        2. Build new board
+        3. Show actual board
+        4. Next player do it move
             1. Show movement instructions
             2. Ask player for it movement
             3. Check if movement is valid
             4. If not, go to step 2.1
-        4. Check if have a winner
+        5. Check if have a winner
             - If not, go to step 1
 
 ## 2 - Board

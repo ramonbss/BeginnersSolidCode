@@ -20,6 +20,10 @@ class IPlayer(metaclass=ABCMeta):
     def player_name(self) -> str:
         return self.__player_name
 
+    @property
+    def player_symbol(self) -> str:
+        return self.__player_symbol
+
 
 class ComputerPlayer(IPlayer):
     def pick_board_position(
