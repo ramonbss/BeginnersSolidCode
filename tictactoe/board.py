@@ -10,7 +10,7 @@ class TicTacToeBoard:
     _P2_SYMBOL = 'x'
 
     def __init__(self) -> None:
-        self.build_new_board()
+        pass
 
     def build_new_board(self) -> None:
         self._board = []
