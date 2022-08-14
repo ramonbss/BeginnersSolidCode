@@ -91,6 +91,10 @@ class TicTacToeBoard:
     def p2_symbol(self) -> str:
         return self._P2_SYMBOL
 
+    @property
+    def taken_positions(self) -> List[Tuple[int, int]]:
+        return self._taken_positions
+
 
 def main():
     board = TicTacToeBoard()
