@@ -1,35 +1,40 @@
+from dataclasses import dataclass
 from typing import List, Tuple
 
 
-class TicTacToeBoard:
-    _EMPTY_CELL = '-'
-    _BOARD_COLUMNS = 3
-    _BOARD_ROWS = 3
+@dataclass
+class BoardProperties:
+    EMPTY_CELL = '-'
+    BOARD_COLUMNS = 3
+    BOARD_ROWS = 3
 
-    _P1_SYMBOL = 'o'
-    _P2_SYMBOL = 'x'
+    P1_SYMBOL = 'o'
+    P2_SYMBOL = 'x'
+
+
+class TicTacToeBoard:
 
     def __init__(self) -> None:
         pass
 
     def build_new_board(self) -> None:
         self._board = []
-        self._board.append([self._EMPTY_CELL]*3)
-        self._board.append([self._EMPTY_CELL]*3)
-        self._board.append([self._EMPTY_CELL]*3)
+        self._board.append([BoardProperties.EMPTY_CELL]*3)
+        self._board.append([BoardProperties.EMPTY_CELL]*3)
+        self._board.append([BoardProperties.EMPTY_CELL]*3)
         self._taken_positions: List[Tuple[int, int]] = []
 
     def print_board(self):
         print('\n   0  1  2')
-        for row in range(self._BOARD_ROWS):
+        for row in range(BoardProperties.BOARD_ROWS):
             print(f'{row}', end='  ')
-            for col in range(self._BOARD_COLUMNS):
+            for col in range(BoardProperties.BOARD_COLUMNS):
                 cell = self._board[row][col]
                 print(cell, end='  ')
             print()
 
     def mark_board(self, row: int, col: int, player_symbol: str) -> bool:
-        if self._board[row][col] == self._EMPTY_CELL:
+        if self._board[row][col] == BoardProperties.EMPTY_CELL:
             self._board[row][col] = player_symbol
             self._taken_positions.append((row, col))
             return True
@@ -41,7 +46,7 @@ class TicTacToeBoard:
 
     def check_if_drawn(self) -> bool:
         return len(self._taken_positions) == \
-            self._BOARD_COLUMNS * self._BOARD_ROWS
+            BoardProperties.BOARD_COLUMNS * BoardProperties.BOARD_ROWS
 
     def _check_rows(self) -> bool:
         for row_elements in self._board:
@@ -52,7 +57,7 @@ class TicTacToeBoard:
 
     def _check_columns(self) -> bool:
 
-        for column_index in range(self._BOARD_COLUMNS):
+        for column_index in range(BoardProperties.BOARD_COLUMNS):
             column_elements = self._get_column_elements(column_index)
 
             if(self._check_if_all_elements_equal(column_elements)):
@@ -69,10 +74,10 @@ class TicTacToeBoard:
     def _check_diagnoals(self) -> bool:
 
         diagonal_1 = [self._board[index][index]
-                      for index in range(self._BOARD_ROWS)]
+                      for index in range(BoardProperties.BOARD_ROWS)]
 
-        diagonal_2 = [self._board[index][self._BOARD_COLUMNS-1-index]
-                      for index in range(self._BOARD_ROWS)]
+        diagonal_2 = [self._board[index][BoardProperties.BOARD_COLUMNS-1-index]
+                      for index in range(BoardProperties.BOARD_ROWS)]
 
         if self._check_if_all_elements_equal(diagonal_1):
             return True
@@ -85,15 +90,15 @@ class TicTacToeBoard:
             self, board_sequence: List[str]) -> bool:
         sequence_items = set(board_sequence)
         return len(sequence_items) == 1 and \
-            not self._EMPTY_CELL in sequence_items
+            not BoardProperties.EMPTY_CELL in sequence_items
 
     @ property
     def p1_symbol(self) -> str:
-        return self._P1_SYMBOL
+        return BoardProperties.P1_SYMBOL
 
     @ property
     def p2_symbol(self) -> str:
-        return self._P2_SYMBOL
+        return BoardProperties.P2_SYMBOL
 
     @property
     def taken_positions(self) -> List[Tuple[int, int]]:
@@ -102,6 +107,7 @@ class TicTacToeBoard:
 
 def main():
     board = TicTacToeBoard()
+    board.build_new_board()
     board.print_board()
     p1 = board.p1_symbol
     p2 = board.p2_symbol
