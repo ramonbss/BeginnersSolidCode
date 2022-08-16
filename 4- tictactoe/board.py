@@ -12,33 +12,11 @@ class BoardProperties:
     P2_SYMBOL = 'x'
 
 
-class TicTacToeBoard:
+class BoardChecker:
 
-    def __init__(self) -> None:
-        pass
-
-    def build_new_board(self) -> None:
-        self._board = []
-        self._board.append([BoardProperties.EMPTY_CELL]*3)
-        self._board.append([BoardProperties.EMPTY_CELL]*3)
-        self._board.append([BoardProperties.EMPTY_CELL]*3)
-        self._taken_positions: List[Tuple[int, int]] = []
-
-    def print_board(self):
-        print('\n   0  1  2')
-        for row in range(BoardProperties.BOARD_ROWS):
-            print(f'{row}', end='  ')
-            for col in range(BoardProperties.BOARD_COLUMNS):
-                cell = self._board[row][col]
-                print(cell, end='  ')
-            print()
-
-    def mark_board(self, row: int, col: int, player_symbol: str) -> bool:
-        if self._board[row][col] == BoardProperties.EMPTY_CELL:
-            self._board[row][col] = player_symbol
-            self._taken_positions.append((row, col))
-            return True
-        return False
+    def load_board_state(self, board: List, taken_positions: List[Tuple[int, int]]):
+        self._board = board
+        self._taken_positions = taken_positions
 
     def check_if_winner(self) -> bool:
         return self._check_rows() or self._check_columns() or\
@@ -91,6 +69,47 @@ class TicTacToeBoard:
         sequence_items = set(board_sequence)
         return len(sequence_items) == 1 and \
             not BoardProperties.EMPTY_CELL in sequence_items
+
+    def clear_states(self):
+        del self._board
+        del self._taken_positions
+
+
+class TicTacToeBoard:
+
+    def __init__(self) -> None:
+        self._board_checker = BoardChecker()
+
+    def build_new_board(self) -> None:
+        self._board = []
+        self._board.append([BoardProperties.EMPTY_CELL]*3)
+        self._board.append([BoardProperties.EMPTY_CELL]*3)
+        self._board.append([BoardProperties.EMPTY_CELL]*3)
+        self._taken_positions: List[Tuple[int, int]] = []
+
+    def print_board(self):
+        print('\n   0  1  2')
+        for row in range(BoardProperties.BOARD_ROWS):
+            print(f'{row}', end='  ')
+            for col in range(BoardProperties.BOARD_COLUMNS):
+                cell = self._board[row][col]
+                print(cell, end='  ')
+            print()
+
+    def mark_board(self, row: int, col: int, player_symbol: str) -> bool:
+        if self._board[row][col] == BoardProperties.EMPTY_CELL:
+            self._board[row][col] = player_symbol
+            self._taken_positions.append((row, col))
+            self._board_checker.load_board_state(
+                self._board, self._taken_positions)
+            return True
+        return False
+
+    def check_if_winner(self) -> bool:
+        return self._board_checker.check_if_winner()
+
+    def check_if_drawn(self) -> bool:
+        return self._board_checker.check_if_drawn()
 
     @ property
     def p1_symbol(self) -> str:
