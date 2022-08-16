@@ -70,10 +70,6 @@ class BoardChecker:
         return len(sequence_items) == 1 and \
             not BoardProperties.EMPTY_CELL in sequence_items
 
-    def clear_states(self):
-        del self._board
-        del self._taken_positions
-
 
 class TicTacToeBoard:
 
